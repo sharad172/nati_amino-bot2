@@ -27,7 +27,8 @@ async def cutes(ctx, uid, com):
         if com[1].find("KISS") != -1:
             async with AIOFile(f'media/cutes/kiss/{str(num)}.gif', 'rb') as file:
                  gif = await file.read()
-                 await ctx.send_gif(gif)
+                 from src.imageSend import send_gif
+                 await send_gif(ctx, gif)
             
             db.modifyRecord(12, user)
             db.modifyRecord(22, ctx.msg.author)
@@ -35,7 +36,8 @@ async def cutes(ctx, uid, com):
         elif com[1].find("HUG") != -1:
             async with AIOFile(f'media/cutes/hug/{str(num)}.gif', 'rb') as file:
                  gif = await file.read()
-                 await ctx.send_gif(gif)
+                 from src.imageSend import send_gif
+                 await send_gif(ctx, gif)
 
             db.modifyRecord(11, user)
             db.modifyRecord(21, ctx.msg.author)
@@ -43,7 +45,8 @@ async def cutes(ctx, uid, com):
         elif com[1].find("PAT") != -1 :
             async with AIOFile(f'media/cutes/pat/{str(num)}.gif', 'rb') as file:
                  gif = await file.read()
-                 await ctx.send_gif(gif)
+                 from src.imageSend import send_gif
+                 await send_gif(ctx, gif)
 
             db.modifyRecord(13, user)
             db.modifyRecord(23, ctx.msg.author)

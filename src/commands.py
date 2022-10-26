@@ -7,7 +7,9 @@ from src import subcommands
 from src import admin
 from src import images
 from src import games
+from src import subprocess
 from src.text import text
+from src.special.tareasAmino import TA
 
 def login():
     with open("data/login.json", "r") as loginFile:
@@ -47,13 +49,21 @@ async def message(ctx: Context):
         elif com.find("--SENDALL") == 0:                                            await antispam.send_all(ctx)
         elif com.find("--ADMIN") == 0:                                              await admin.nati(ctx)
         elif com.find("--DEEPANALYZE") == 0:                                        await antispam.deepAnalyze.run(ctx)
+        elif com.find("--CHATANALYZE") == 0: await antispam.chatAnalyze(ctx)
+        elif com.find("--LISTATA_CA") == 0:                                         await TA.run(ctx)
+        elif com.find("--STATS2") == 0:                                             await images.botstats2(ctx)
+        elif com.find("--STATS") == 0:                                              await images.stats(ctx)
+        elif com.find("--JOINPUBLICCHATS") == 0:                                    await admin.joinChats(ctx)
+        elif com.find("--DELETEMSG") == 0:                                          await antispam.del_(ctx)
         elif d != 100: 
             if   com.find("NATI")   == 0:                                               reply.msg = "¿Me llamaban? Utiliza --help para ver mis comandos, uwu."
             elif com.find("ARTEMIS") == 0:                                              reply.msg = "¿Me llamaban? Utiliza --help para ver mis comandos, uwu."
             elif com.find("EMMA") == 0 and ctx.msg.ndcId == 215907772:                  reply.msg = "¿Me llamaban? Utiliza --help para ver mis comandos, uwu."
             elif com.find("ANYA") == 0 and ctx.msg.ndcId == 139175768:                  reply.msg = "¿Me llamaban? Utiliza --help para ver mis comandos, uwu."
             elif com.find("--SEX") == 0:                                                reply.msg = text['sex']
+            elif com.find("--RATE") == 0:                                               await subcommands.rateBlog(ctx)
             elif com.find("--NANO") == 0 :                                              reply.msg = text['nano']
+            elif com.find("--CARD1") == 0:                                              await images.card(ctx)
             elif com.find("--JUEGOS") == 0:                                             await games.main(ctx)
             elif com.find("-J") == 0:                                                   await games.turn(ctx)
             elif com.find("--WORDLE") == 0:                                           reply     = await commands.wordle(ctx, com)
@@ -64,6 +74,7 @@ async def message(ctx: Context):
             elif com.find("--LETRA") == 0                                   :           reply.msg = subcommands.web_tools.lyrics(msg)
             elif com.find("--DEF") == 0:                                                reply.msg = subcommands.web_tools.definition(msg)
             elif com.find("--WIKI") == 0:                                               reply.msg = await subcommands.web_tools.wiki(ctx)
+            elif com.find("--NEWS") == 0:                                               await images.getNews(ctx)
             elif com.find("--MATRIX") == 0:                                             reply.msg = subcommands._math.matrix(com)
             elif com.find("--ALIAS") == 0:                                              reply.msg = await subcommands.alias(ctx, msg)
             elif com.find("--GHOST") == 0:                                              reply.msg = await subcommands.ghost(ctx, msg)
@@ -101,12 +112,13 @@ async def message(ctx: Context):
             elif com.find("--VIEW") == 0:                                               reply.msg = await antispam.view(ctx)
             elif com.find("--CUSTOMMSG") == 0:                                          await subcommands.customMsg(ctx)
             elif com.find("--ARTICLE") == 0:                                            await images.wiki(ctx) 
-            elif com.find("--STATS") == 0:                                              await images.stats(ctx)
             elif com.find("--TWEET") == 0:                                              await images.tweet(ctx)
             elif com.find("--LINEART") == 0:                                              await images.lineart(ctx)
             elif com.find("--IMGMATRIX") == 0:                                            await subcommands._math.imgMatrix(ctx)
+            elif com.find("--COUNTDOWN") == 0:                                          await subprocess.timer.main(ctx)
             #elif subCommands.papulince(com):                                            reply = await subCommands.kick(ctx, msg_text['grasa'])
             elif com.find("Y LOS RESULTADOS?") != -1:                                   reply.msg = "Y los blogs?"
+            elif com.find("--XKCD") != -1:                                              await subcommands.web_tools.xfcd(ctx)
         
         print(ctx.msg.content, ctx.msg.author.nickname)
 

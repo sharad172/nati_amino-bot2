@@ -4,3 +4,5 @@ from .checkWall     import check_wall, get_wall_comments
 from .n_logging     import set_logging, sendLog, wallLog
 from .view          import view
 from .deepAnalyze   import deepAnalyze
+from .chat          import chatAnalyze
+from .delete        import del_

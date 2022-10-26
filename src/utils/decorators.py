@@ -43,7 +43,7 @@ def ban(func):
         reason = msg.split(" ")
         if len(reason) == 1: reason = "Acción hecha a petición"
         else               :
-            msg.pop(0)
+            reason.pop(0)
             reason = " ".join(msg)
         replyMsg = ctx.msg.extensions.replyMessage
         userList = []
@@ -103,10 +103,10 @@ def checkFor(m=0, M=1, notcount=1, copy=1):
             msg = ctx.msg.content 
             msg = msg.split(" ")
             if len(msg)-notcount < m:
-                await ctx.send(f"¡Muy pocos argemntos! Se esperan: {m}")
+                await ctx.send(f"¡Muy pocos argumentos! Se esperan: {m}")
                 return None
             if len(msg)-notcount > M:
-                await ctx.send(f"¡Denasiados argemntos! Se esperan: {M}")
+                await ctx.send(f"¡Demasiados argumentos! Se esperan: {M}")
                 return None
             
             a = []
@@ -130,18 +130,24 @@ def checkType(*listargs):
 
             typedArgs  = []
             failedArgs = []
+            convert = True
             for i,(a,b) in enumerate(zip(listargs, msg)):
-                if   a == "i":
-                    try     : typedArgs.append(int(b))
-                    except  :failedArgs.append(i+1)
-                elif a == "s":
-                    try     : typedArgs.append(str(b))
-                    except  :failedArgs.append(i+1)
-                elif a == "f":
-                    try     : typedArgs.append(float(b))
-                    except  :failedArgs.append(i+1)
-                else         :
-                    typedArgs.append(b)
+                if convert:
+                    if   a == "i":
+                        try     : typedArgs.append(int(b))
+                        except  : failedArgs.append(i+1)
+                    elif a == "s":
+                        try     : typedArgs.append(str(b))
+                        except  : failedArgs.append(i+1)
+                    elif a == "f":
+                        try     : typedArgs.append(float(b))
+                        except  : failedArgs.append(i+1)
+                    elif a == ".":
+                        convert = False
+                    else         :
+                        typedArgs.append(b)
+                if not convert:
+                    typedArgs.append(str(b))
 
             if failedArgs:
                 return await ctx.send(f"Los parámetros {failedArgs} no son del tipo correcto.")
