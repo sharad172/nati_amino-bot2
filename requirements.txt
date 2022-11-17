@@ -1,7 +1,7 @@
-python3 -m pip install ed-amino
-python3 -m pip install bs4
-python3 -m pip install requests
-python3 -m pip install dataclasses
+ed-amino
+bs4
+requests
+dataclasses
 
 mkdir database
 mkdir media
